@@ -47,6 +47,11 @@ SUBSYSTEM_DEF(ambience)
 			if(planet.lightlevel)
 				set_ambient_light(COLOR_WHITE, planet.lightlevel)
 				return TRUE
+		// For tha dev map
+		// i'm the giant 🐀 that writes all the bad code
+		// TODO: Remove later
+		else if(z == 1)
+			set_ambient_light(COLOR_WHITE, 2)
 		else if(config.exterior_ambient_light)
 			set_ambient_light(SSskybox.background_color, config.exterior_ambient_light)
 			return TRUE
