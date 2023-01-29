@@ -11,7 +11,7 @@
 	var/broken
 	var/burnt
 	// Amalgamation of /turf/exterior on top
-	var/diggable = 1
+	var/diggable = 0
 	var/dirt_color = "#7c5e42"
 	var/possible_states = 0
 	var/icon_edge_layer = -1
@@ -135,3 +135,15 @@
 					else if(direction & WEST)
 						I.pixel_x -= world.icon_size
 					add_overlay(I)
+
+/turf/simulated/ground/attackby(obj/item/C, mob/user)
+
+	if(diggable && IS_SHOVEL(C))
+		if(C.do_tool_interaction(TOOL_SHOVEL, user, src, 5 SECONDS))
+			new /obj/structure/pit(src)
+			diggable = FALSE
+		else
+			to_chat(user, SPAN_NOTICE("You stop shoveling."))
+		return TRUE
+
+	. = ..()
